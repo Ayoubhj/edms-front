@@ -12,5 +12,20 @@ export const MENU: MenuItem[] = [
     icon: 'ri-dashboard-2-line',
     link: '/',
   },
+  {
+    id: 3,
+    label: 'MENUITEMS.SETTINGS.TEXT',
+    icon: 'ri-dashboard-2-line',
+    isCollapsed: true,
+    subItems: [
+      {
+        id: 3,
+        label: 'MENUITEMS.SETTINGS.LIST.ADMIN',
+        link: '/settings/administration',
+        roles: ['admin'],
+        parentId: 3
+      },
+    ]
+  },
 
 ];

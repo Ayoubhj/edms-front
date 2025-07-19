@@ -35,7 +35,7 @@ export class TopbarComponent implements OnInit {
   total = 0;
   cart_length: any = 0;
   totalNotify: number = 0;
-
+  currentUserRoles: any[] = [];
   isDropdownOpen = false;
   @ViewChild('removenotification') removenotification !: TemplateRef<any>;
   notifyId: any;
@@ -47,7 +47,7 @@ export class TopbarComponent implements OnInit {
   ngOnInit() {
 
     this.userData = this.keycloakUserService.getUserProfile();
-    console.log(this.userData)
+    this.currentUserRoles = this.keycloakUserService.getUserRoles();
     this.element = document.documentElement;
 
     // Cookies wise Language set

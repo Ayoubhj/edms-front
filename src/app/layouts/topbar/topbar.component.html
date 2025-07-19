@@ -360,8 +360,7 @@
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{userData?.firstName}}
                                     {{userData?.lastName}}</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{userData?.role
-                                    == 0 ? 'Admin':'User'}}</span>
+                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{this.currentUserRoles.includes('admin') ? 'Admin':'User'}}</span>
                             </span>
                         </span>
                     </button>

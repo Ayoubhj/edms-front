@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { environment } from 'src/environments/environment';
+import {KeycloakUserService} from "../../core/services/keycloak.user";
 
 @Component({
   selector: 'app-sidebar',
@@ -16,14 +17,16 @@ export class SidebarComponent implements OnInit {
   menu: any;
   toggle: any = true;
   menuItems: MenuItem[] = [];
+  currentUserRoles: any[] = [];
   @ViewChild('sideMenu') sideMenu!: ElementRef;
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
-  constructor(private router: Router, public translate: TranslateService) {
+  constructor(private router: Router, public translate: TranslateService,private readonly keycloakUserService : KeycloakUserService) {
     translate.setDefaultLang('en');
   }
 
   ngOnInit(): void {
+    this.currentUserRoles = this.keycloakUserService.getUserRoles()
     // Menu Items
     this.menuItems = MENU;
     this.router.events.subscribe((event) => {
@@ -35,6 +38,12 @@ export class SidebarComponent implements OnInit {
     });
   }
 
+  hasAccess(itemRoles?: string[]): boolean {
+    if (!itemRoles || itemRoles.length === 0) {
+      return true; // or false, depending on your policy (default: visible to all)
+    }
+    return itemRoles.some((role) => this.currentUserRoles.includes(role));
+  }
   /***
    * Activate droup down set
    */
